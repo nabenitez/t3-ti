@@ -5,22 +5,10 @@ const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#333333',
+      main: '#3F89B5',
     },
     secondary: {
-      main: '#1ec677',
-    },
-    error: {
-      main: '#ba2d0b',
-    },
-    info: {
-      main: '#78a1bb',
-    },
-    warning: {
-      main: '#faa916',
-    },
-    success: {
-      main: '#1ec677',
+      main: '#f50057',
     },
   },
   typography: {
