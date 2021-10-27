@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import dynamic from 'next/dynamic'
 import { connect } from 'socket.io-client'
+import Chat from '../components/Chat'
 
 export default function Index() {
   React.useEffect(() => {
@@ -32,12 +33,12 @@ export default function Index() {
           <MapNoSSR />
         </Grid>
         <Grid item xs={12} md={5}>
-          <Box sx={{ bgcolor: 'primary.main', height: '50vh', width: '100%' }}>
+          <Chat />
+        </Grid>
+        <Grid item xs={12} sx={{ height: '30vh' }}>
+          <Box sx={{ bgcolor: 'primary.main', height: '30vh', width: '100%' }}>
             a
           </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ bgcolor: 'red', height: '30vh', width: '100%' }}></Box>
         </Grid>
       </Grid>
     </Container>
