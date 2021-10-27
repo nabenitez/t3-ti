@@ -1,7 +1,13 @@
 import 'leaflet/dist/leaflet.css'
 import React from 'react'
 import { icon } from 'leaflet'
-import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Tooltip,
+} from 'react-leaflet'
 import socket from '../services/ws.service'
 import randomColor from 'randomcolor'
 import Loading from './Loading'
@@ -23,7 +29,11 @@ const Map = () => {
           latLng: [...trucksPositions[code]?.latLng, position],
         }
       } else {
-        trucksPositions[code] = { color: randomColor(), latLng: [position] }
+        trucksPositions[code] = {
+          code,
+          color: randomColor(),
+          latLng: [position],
+        }
       }
 
       setTrucksPositions({
@@ -46,7 +56,11 @@ const Map = () => {
       {Object.values(trucksPositions).map((pos, index) => (
         <div key={index}>
           <Polyline positions={pos.latLng} pathOptions={{ color: pos.color }} />
-          <Marker position={pos.latLng.slice(-1)[0]} icon={ICON} />
+          <Marker position={pos.latLng.slice(-1)[0]} icon={ICON}>
+            <Tooltip direction="bottom" offset={[0, 5]} opacity={0.5} permanent>
+              {pos.code}
+            </Tooltip>
+          </Marker>
         </div>
       ))}
     </MapContainer>
