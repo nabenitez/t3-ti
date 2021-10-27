@@ -3,8 +3,9 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import dynamic from 'next/dynamic'
-import { connect } from 'socket.io-client'
+import Loading from '../components/Loading'
 import Chat from '../components/Chat'
+import { connect } from 'socket.io-client'
 
 export default function Index() {
   React.useEffect(() => {
@@ -25,7 +26,10 @@ export default function Index() {
     // socket disconnet onUnmount if exists
     if (socket) return () => socket.disconnect()
   }, [])
-  const MapNoSSR = dynamic(() => import('../components/Map'), { ssr: false })
+  const MapNoSSR = dynamic(() => import('../components/Map'), {
+    ssr: false,
+    loading: () => <Loading />,
+  })
   return (
     <Container sx={{ mt: 8 }} maxWidth="lg">
       <Grid container spacing={3}>
