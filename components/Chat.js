@@ -24,7 +24,15 @@ const Chat = () => {
     })
   }, [])
 
-  console.log('ref', messages)
+  const messagesEndRef = React.useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  React.useEffect(() => {
+    scrollToBottom()
+  }, [messages])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -34,17 +42,17 @@ const Chat = () => {
     messageRef.current.value = ''
   }
   return (
-    <Paper component="form" sx={{ height: '50vh' }} onSubmit={handleSubmit}>
+    <Paper component="form" sx={{ height: 450 }} onSubmit={handleSubmit}>
       <Grid container sx={{ height: '100%' }}>
         <Grid
           item
           xs={12}
           sx={{
+            height: 50,
             textAlign: 'center',
             bgcolor: 'primary.main',
             p: 1,
             borderRadius: 2,
-            height: '10%',
           }}
         >
           <Typography variant="h6" component="div" color="#ffff">
@@ -101,6 +109,7 @@ const Chat = () => {
                 </ListItem>
               )
             })}
+            <div ref={messagesEndRef} />
           </List>
         </Grid>
         <Grid item xs={12}>
