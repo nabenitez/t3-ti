@@ -1,5 +1,5 @@
 import { connect } from 'socket.io-client'
-const socket = connect(process.env.NEXT_PUBLIC_WS_BASE_URL, {
+const socket = connect(process.env.BASE_URL, {
   path: '/trucks',
 })
 
