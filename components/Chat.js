@@ -60,7 +60,7 @@ const Chat = () => {
             overflowWrap: 'break-word',
           }}
         >
-          <List sx={{ overflowY: 'auto' }}>
+          <List sx={{ overflowY: 'auto', p: 1 }}>
             {messages.map((element, index) => {
               const checkNick = () => element.name === nickRef.current.value
               const alignTo = checkNick() ? 'right' : 'left'
@@ -113,6 +113,7 @@ const Chat = () => {
         </Grid>
         <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
           <InputBase
+            autoFocus
             sx={{ ml: 1, flex: 1 }}
             placeholder="Type a message"
             inputProps={{ 'aria-label': 'send message' }}
