@@ -28,6 +28,7 @@ export default function Index() {
   }, [])
   const MapNoSSR = dynamic(() => import('../components/Map'), {
     ssr: false,
+    // eslint-disable-next-line react/display-name
     loading: () => <Loading />,
   })
   return (
