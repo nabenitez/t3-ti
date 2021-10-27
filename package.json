@@ -1,0 +1,35 @@
+{
+  "name": "t3-ti",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "next lint",
+    "serve": "serve out",
+    "deploy": "next build && next export && git add out/ && git commit -m \"Deploy gh-pages\" && git subtree push --prefix out origin gh-pages",
+    "deployv": "sudo cp -a . ../deploys/t3-ti && cd ../deploy/t3-ti && git add . && git commit -m \"Deploy gh-pages\" && git push"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "leaflet": "^1.7.1",
+    "next": "11.1.2",
+    "randomcolor": "^0.6.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-leaflet": "^3.2.2",
+    "socket.io-client": "^4.3.2"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "serve": "^12.0.1"
+  }
+}
