@@ -4,6 +4,7 @@ import { icon } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet'
 import socket from '../services/ws.service'
 import randomColor from 'randomcolor'
+import Loading from './Loading'
 
 const ICON = icon({
   iconUrl: '/marker.png',
@@ -36,7 +37,7 @@ const Map = () => {
       center={Object.values(trucksPositions)[0].latLng[0]}
       zoom={11}
       scrollWheelZoom={false}
-      style={{ height: '50vh', width: '100%' }}
+      style={{ minHeight: 450, width: '100%' }}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -49,7 +50,9 @@ const Map = () => {
         </div>
       ))}
     </MapContainer>
-  ) : null
+  ) : (
+    <Loading />
+  )
 }
 
 export default Map
