@@ -5,27 +5,9 @@ import Grid from '@mui/material/Grid'
 import dynamic from 'next/dynamic'
 import Loading from '../components/Loading'
 import Chat from '../components/Chat'
-import { connect } from 'socket.io-client'
+import TrucksInfo from '../components/TrucksInfo'
 
 export default function Index() {
-  React.useEffect(() => {
-    // connect to socket server
-    const socket = connect(process.env.NEXT_PUBLIC_WS_BASE_URL, {
-      path: '/trucks',
-    })
-
-    // log socket connection
-
-    // update chat on new message dispatched
-    socket.emit('TRUCKS')
-
-    socket.on('TRUCKS', (message) => {
-      console.log('trucks', message)
-    })
-
-    // socket disconnet onUnmount if exists
-    if (socket) return () => socket.disconnect()
-  }, [])
   const MapNoSSR = dynamic(() => import('../components/Map'), {
     ssr: false,
     // eslint-disable-next-line react/display-name
@@ -40,10 +22,8 @@ export default function Index() {
         <Grid item xs={12} md={5}>
           <Chat />
         </Grid>
-        <Grid item xs={12} sx={{ height: '30vh' }}>
-          <Box sx={{ bgcolor: 'primary.main', height: '30vh', width: '100%' }}>
-            a
-          </Box>
+        <Grid item xs={12} sx={{ height: 280 }}>
+          <TrucksInfo />
         </Grid>
       </Grid>
     </Container>
