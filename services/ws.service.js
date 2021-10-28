@@ -1,10 +1,19 @@
 import { connect } from 'socket.io-client'
-const socket = connect(process.env.BASE_URL, {
-  path: '/trucks',
-})
 
-socket.on('connect', () => {
-  console.log('SOCKET CONNECTED!', socket.id)
-})
+const singleton = () => {
+  const socket = connect(process.env.BASE_URL, {
+    path: '/trucks',
+  })
 
-export default socket
+  if (socket.connected) {
+    return socket
+  }
+
+  socket.on('connect', () => {
+    console.log('SOCKET CONNECTED!', socket.id)
+  })
+
+  return socket
+}
+
+export default singleton()
