@@ -18,7 +18,6 @@ const Chat = () => {
   const [messages, setMessages] = React.useState([])
   React.useEffect(() => {
     socket.on('CHAT', (message) => {
-      console.log('chat msg', message)
       messages.push(message)
       setMessages([...messages])
     })

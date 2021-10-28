@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { Button, CardActions } from '@mui/material'
 import Loading from './Loading'
+import Alert from '@mui/material/Alert'
+import IconButton from '@mui/material/IconButton'
+import Collapse from '@mui/material/Collapse'
 
 const TrucksInfo = () => {
   const [trucks, setTrucks] = React.useState([])
@@ -16,17 +19,28 @@ const TrucksInfo = () => {
     setSubmitting(true)
     socket.emit('TRUCKS')
   }
+
+  const handleFix = (code) => {
+    socket.emit('FIX', { code })
+  }
+
   React.useEffect(() => {
     getTrucksInfo()
     // update chat on new message dispatched
+
+    socket.on('FIX', (message) => {
+      const { code } = message
+      delete failures[code]
+
+      setFailures({ ...failures })
+    })
+
     socket.on('TRUCKS', (message) => {
       setTrucks(message)
       setSubmitting(false)
-      console.log('trucks', message)
     })
 
     socket.on('FAILURE', (message) => {
-      console.log('fail', message)
       const { code, source } = message
       if (failures[code]) {
         failures[code].push(source)
@@ -40,10 +54,6 @@ const TrucksInfo = () => {
     // socket disconnet onUnmount if exists
     if (socket) return () => socket.disconnect()
   }, [])
-
-  React.useEffect(() => {
-    console.log('failures', failures)
-  }, [failures])
 
   return (
     <Box
@@ -102,7 +112,12 @@ const TrucksInfo = () => {
                 </CardContent>
                 <CardActions>
                   {failures[truck.code] && (
-                    <Button size="small" color="secondary" variant="contained">
+                    <Button
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                      onClick={() => handleFix(truck.code)}
+                    >
                       Fix truck
                     </Button>
                   )}
